@@ -8,8 +8,14 @@ function AppliesCrowdControlStatus(entity)
         'SG_Stunned',
         'SG_Unconscious',
         'SG_Restrained',
-        'SG_JustProne',
         'SG_Prone',
+		'PRONE',
+		'PRONE_GREASE',
+		'PRONE_SEWER',
+		'PRONE_ICE',
+		'PRONE_FALLEN',
+		'KNOCKED_DOWN',
+		'PRONE_THUNDEROUS_SMITE',
         'SG_Polymorph',
         'SG_Dominated',
         'DISARM'
@@ -34,7 +40,7 @@ end
 
 
 function HasHelpableCondition()
-    result = HasAnyStatus({'SG_Helpable_Condition','DOWNED','HAG_DOWNED','SCL_DOWNED','SG_Prone','SG_JustProne','SG_Restrained','PRONE','SLEEPING','SLEEP','ENSNARING_STRIKE','WEB','BURNING','HYPNOTIC_PATTERN','COL_NIGHTSONG_SOULCAGE'}, {}, {})
+    result = HasAnyStatus({'SG_Helpable_Condition','DOWNED','HAG_DOWNED','SCL_DOWNED','SG_Prone','PRONE','PRONE_GREASE','PRONE_SEWER','PRONE_ICE','PRONE_FALLEN','KNOCKED_DOWN','PRONE_THUNDEROUS_SMITE','SG_Restrained','PRONE','SLEEPING','SLEEP','ENSNARING_STRIKE','WEB','BURNING','HYPNOTIC_PATTERN','COL_NIGHTSONG_SOULCAGE'}, {}, {})
     return ConditionResult(result.Result, {ConditionError("HasNotHelpableCondition")})
 end
 
