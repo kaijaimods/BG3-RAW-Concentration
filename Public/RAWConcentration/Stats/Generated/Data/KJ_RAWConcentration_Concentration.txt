@@ -87,3 +87,8 @@ data "StatusType" "KNOCKED_DOWN"
 using "PRONE"
 data "OnApplyFunctors" "RemoveStatus(SNEAKING);RemoveStatus(SLEEP);RemoveStatus(SG_Sleeping);IF(IsConcentrating()): ApplyStatus(DISTRACTED_CONCENTRATION_CHECK,100,0)"
 
+new entry "HIDEOUS_LAUGHTER"
+type "StatusData"
+data "StatusType" "KNOCKED_DOWN"
+using "HIDEOUS_LAUGHTER"
+data "OnApplyFunctors" "BreakConcentration()"
