@@ -50,7 +50,6 @@ using "HALLUCINATION_SPORES"
 data "StatusType" "INCAPACITATED"
 data "OnApplyFunctors" "IF(IsConcentrating()): ApplyStatus(DISTRACTED_CONCENTRATION_CHECK,100,0)"
 
-//TODO: MageSlayer_BreakConcentration ALWAYS breaks concentrations, when it should just give disadvantage on the rolls. Might not change this since it's a feat only players get and enemies have fudgy concentration rolls
 new entry "MageSlayer_BreakConcentration"
 type "PassiveData"
 using "MageSlayer_BreakConcentration
@@ -67,16 +66,20 @@ data "Icon" "PassiveFeature_MageSlayer_BreakConcentration"
 data "InterruptContext" "OnPreDamage"
 data "InterruptContextScope" "Self"
 data "Conditions" "not Self(context.Target,context.Observer) and IsConcentrating(context.Target)"
-data "Properties" "TARGET:ApplyStatus(MAGESLAYER_CONCENTRATION_DISADVANTAGE,100,1)"
+data "Properties" "TARGET:ApplyStatus(MAGESLAYER_CONCENTRATION_DISADVANTAGE,100, 1)"
 data "InterruptDefaultValue" "Enabled"
+data "InterruptFlags" "InterruptWhileInvisible"
 
+//TODO: This gets removed on the first hit when multiple hits are delivered at once, such as from Magic Missile. Would be nice to find a way to let the hits finish before it's removed
 new entry "MAGESLAYER_CONCENTRATION_DISADVANTAGE"
 type "StatusData"
 data "StatusType" "BOOST"
 data "Boosts" "Disadvantage(Concentration)"
 data "TickType" "EndTurn"
+data "StackId" "MAGESLAYER_CONCENTRATION_DISADVANTAGE"
 data "RemoveEvents" "OnDamage"
-data "StatusPropertyFlags" "DisableOverhead;DisableCombatlog;DisablePortraitIndicator;NonExtendable"
+data "OnRemoveFunctors" ""
+data "StatusPropertyFlags" "DisableOverhead;DisableCombatlog;DisablePortraitIndicator"
 
 new entry "PRONE"
 type "StatusData"
