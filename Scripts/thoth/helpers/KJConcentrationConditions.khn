@@ -1,0 +1,52 @@
+local __util = require 'larian.util'
+
+function AppliesCrowdControlStatus(entity)
+    local entity = entity or context.Target
+    local ccStatuses = {
+        'SG_Fleeing',
+        'SG_Incapacitated',
+        'SG_Stunned',
+        'SG_Unconscious',
+        'SG_Restrained',
+        'SG_JustProne',
+        'SG_Prone',
+        'SG_Polymorph',
+        'SG_Dominated',
+        'DISARM'
+    }
+
+    for i,v in ipairs(ccStatuses) do
+        if PassiveHasStatus(v).Result then
+            if (not IsImmuneToStatus(v, entity).Result) then
+                return ConditionResult(true)
+            end
+        end
+        if SpellHasStatus(v).Result then
+            if (not IsImmuneToStatus(v, entity).Result) then
+                return ConditionResult(true)
+            end
+        end
+    end
+
+    return ConditionResult(false)
+end
+
+
+
+function HasHelpableCondition()
+    result = HasAnyStatus({'SG_Helpable_Condition','DOWNED','HAG_DOWNED','SCL_DOWNED','SG_Prone','SG_JustProne','SG_Restrained','PRONE','SLEEPING','SLEEP','ENSNARING_STRIKE','WEB','BURNING','HYPNOTIC_PATTERN','COL_NIGHTSONG_SOULCAGE'}, {}, {})
+    return ConditionResult(result.Result, {ConditionError("HasNotHelpableCondition")})
+end
+
+
+function HasConcentrationAdvantage(entity)
+    entity = entity or context.Target
+	
+	return HasPassive('WarCaster_Bonuses',entity) | HasStatus('ALCH_ELIXIR_CONCENTRATION',entity) | HasStatus('ORI_GALE_MYSTRABLESSING_1',entity) | HasPassive('MAG_Multitasking_Passive',entity) | HasStatus('AI_HELPER_DIPWEAPON_OIL_WIZARDSBANE',entity)
+end
+
+function HasConcentrationDisadvantage(entity)
+    entity = entity or context.Target
+	
+	return HasStatus('MF_IMPERIL_IMPROVED',entity) | HasStatus('ALCH_OIL_WIZARDSBANE_CONDITION',entity) | HasStatus('MAGESLAYER_CONCENTRATION_DISADVANTAGE',entity)
+end
