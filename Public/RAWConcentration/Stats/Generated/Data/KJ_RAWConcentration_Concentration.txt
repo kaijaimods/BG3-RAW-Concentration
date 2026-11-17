@@ -53,12 +53,12 @@ data "OnApplyFunctors" "IF(IsConcentrating()): ApplyStatus(DISTRACTED_CONCENTRAT
 new entry "MageSlayer_BreakConcentration"
 type "PassiveData"
 using "MageSlayer_BreakConcentration
-data "Boosts" "UnlockInterrupt(Interrupt_MageSlayer)"
+data "Boosts" "UnlockInterrupt(Interrupt_MageSlayer_BreakConcentration)"
 data "StatsFunctorContext" ""
 data "Conditions" ""
 data "StatsFunctors" ""
 
-new entry "Interrupt_MageSlayer"
+new entry "Interrupt_MageSlayer_BreakConcentration"
 type "InterruptData"
 data "DisplayName" "h5a0585c8gbdacg4a6fgbd37ge6e9622cd001;2"
 data "Description" "hb5dda104g22fdg495fg9f61g672302c3434d;4"
